@@ -1,6 +1,7 @@
 package sv.com.ariel.tellmeastory;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -44,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
                 public void onItemClick(Story story, int position) {
                     Toast.makeText(MainActivity.this,story + " - "+ position,Toast.LENGTH_LONG).show();
 
-
+                    Intent intent = new Intent(MainActivity.this, StoryActivity.class);
+                    startActivity(intent);
                 }
             });
             //todos los tipos de layout manager con los que se puede jugar con el recycler view

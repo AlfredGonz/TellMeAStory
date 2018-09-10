@@ -1,10 +1,13 @@
 package sv.com.ariel.tellmeastory.Network.Model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
 
-public class Story {
+public class Story implements Parcelable {
 
 	@SerializedName("Category")
 	private Category category;
@@ -23,6 +26,38 @@ public class Story {
 
 	@SerializedName("idCategory")
 	private int idCategory;
+
+	protected Story(Parcel in) {
+		name = in.readString();
+		id = in.readInt();
+		state = in.readInt();
+		idCategory = in.readInt();
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeString(name);
+		dest.writeInt(id);
+		dest.writeInt(state);
+		dest.writeInt(idCategory);
+	}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	public static final Creator<Story> CREATOR = new Creator<Story>() {
+		@Override
+		public Story createFromParcel(Parcel in) {
+			return new Story(in);
+		}
+
+		@Override
+		public Story[] newArray(int size) {
+			return new Story[size];
+		}
+	};
 
 	public void setCategory(Category category){
 		this.category = category;
