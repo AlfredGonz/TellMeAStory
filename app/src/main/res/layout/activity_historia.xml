@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Historia"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="191dp"
+        android:scaleType="fitStart"
+        android:src="@drawable/story" />
+
+    <at.markushi.ui.CircleButton
+        android:layout_width="64dip"
+        android:layout_height="64dip"
+        android:src="@drawable/sound"
+        app:cb_color="@color/colorAccent"
+        app:cb_pressedRingWidth="8dip"
+        android:id="@+id/btnSonido"/>
+
+    <TextView
+        android:layout_marginTop="35dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="~ Titulo ~"
+        android:fontFamily="serif-monospace"
+        android:textSize="25sp"
+        android:gravity="center"
+        android:id="@+id/txtSonido"/>
+
+</LinearLayout>

@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#212121"
     tools:context="sv.com.ariel.tellmeastory.Activities.MainActivity">
 
   <LinearLayout
@@ -14,6 +13,7 @@
       android:orientation="vertical">
 
       <android.support.v7.widget.Toolbar
+          android:id="@+id/toolbar"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:background="@color/colorPrimary"
@@ -21,17 +21,17 @@
           app:titleTextColor="@color/colorAccent"
           ></android.support.v7.widget.Toolbar>
 
-      <ImageView
+     <!-- <ImageView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:src="@drawable/story"
           android:scaleType="fitXY"/>
-
+-->
       <TextView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:text="HISTORIAS"
-          android:textColor="#FFFFFF"
+          android:textColor="#212121"
           android:gravity="center"
           android:textSize="30sp"
           android:fontFamily="serif"

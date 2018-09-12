@@ -2,17 +2,25 @@ package sv.com.ariel.tellmeastory.Activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.SearchView;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
+import sv.com.ariel.tellmeastory.Historia;
 import sv.com.ariel.tellmeastory.MyAdapter;
 import sv.com.ariel.tellmeastory.Network.Api.StoryApi;
 import sv.com.ariel.tellmeastory.Network.Model.Story;
@@ -20,7 +28,10 @@ import sv.com.ariel.tellmeastory.Network.Model.StoryMain;
 
 import sv.com.ariel.tellmeastory.R;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener/*, SearchView.OnQueryTextListener*/ {
+
+    private Toolbar toolbar;
+
     private List<Story> stories;
     private RecyclerView myReclyclerView;
     private RecyclerView.Adapter myAdapter;
@@ -32,6 +43,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Toolbar
+        toolbar=(Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        //Botones menu inferior
 
         ImageButton home = (ImageButton)findViewById(R.id.inicio);
         home.setOnClickListener(this);
@@ -65,8 +82,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 public void onItemClick(Story story, int position) {
                     Toast.makeText(MainActivity.this,story + " - "+ position,Toast.LENGTH_LONG).show();
 
-                   // Intent intent = new Intent(MainActivity.this, StoryActivity.class);
-                   // startActivity(intent);
+                    Intent intent = new Intent(MainActivity.this, Historia.class);
+                    startActivity(intent);
                 }
             });
             //todos los tipos de layout manager con los que se puede jugar con el recycler view
@@ -139,4 +156,53 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
+/*
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu,menu);
+        MenuItem item = menu.findItem(R.id.buscar);
+        SearchView searchView =(SearchView) MenuItemCompat.getActionView(item);
+        searchView.setOnQueryTextListener(this);
+        return true;
+    }
+
+
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+
+        try {
+            ArrayList<Story>listaFiltrada =  filter(stories,s);
+            myAdapter.setFilter(stories);
+
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    private ArrayList<Story> filter(List<Story> historias, String texto)
+    {
+        ArrayList<Story>listaFiltrada= new ArrayList<>();
+
+        try{
+            texto=texto.toLowerCase();
+            for (Story story: historias){
+                String historia = story.getName().toLowerCase();
+
+                if(historia.contains(texto)){
+                    listaFiltrada.add(story);
+                }
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return listaFiltrada;
+    }
+*/
 }
