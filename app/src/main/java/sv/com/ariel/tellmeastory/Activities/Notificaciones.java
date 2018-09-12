@@ -8,12 +8,12 @@ import android.widget.ImageButton;
 
 import sv.com.ariel.tellmeastory.R;
 
-public class AgregarHistoria extends AppCompatActivity implements View.OnClickListener{
+public class Notificaciones extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_agregar_historia);
+        setContentView(R.layout.activity_notificaciones);
 
         ImageButton home = (ImageButton)findViewById(R.id.inicio);
         home.setOnClickListener(this);
