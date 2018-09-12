@@ -20,6 +20,8 @@ public class Story implements Parcelable {
 
 	@SerializedName("state")
 	private int state;
+	@SerializedName("url")
+	private String url;
 
 	@SerializedName("Section")
 	private List<SectionItem> section;
@@ -28,17 +30,23 @@ public class Story implements Parcelable {
 	private int idCategory;
 
 	protected Story(Parcel in) {
+		category = in.readParcelable(Category.class.getClassLoader());
 		name = in.readString();
 		id = in.readInt();
 		state = in.readInt();
+		url = in.readString();
+		section = in.createTypedArrayList(SectionItem.CREATOR);
 		idCategory = in.readInt();
 	}
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeParcelable(category, flags);
 		dest.writeString(name);
 		dest.writeInt(id);
 		dest.writeInt(state);
+		dest.writeString(url);
+		dest.writeTypedList(section);
 		dest.writeInt(idCategory);
 	}
 
@@ -59,56 +67,59 @@ public class Story implements Parcelable {
 		}
 	};
 
-	public void setCategory(Category category){
-		this.category = category;
-	}
-
-	public Category getCategory(){
+	public Category getCategory() {
 		return category;
 	}
 
-	public void setName(String name){
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
 		this.name = name;
 	}
 
-	public String getName(){
-		return name;
-	}
-
-	public void setId(int id){
-		this.id = id;
-	}
-
-	public int getId(){
+	public int getId() {
 		return id;
 	}
 
-	public void setState(int state){
-		this.state = state;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public int getState(){
+	public int getState() {
 		return state;
 	}
 
-	public void setSection(List<SectionItem> section){
-		this.section = section;
+	public void setState(int state) {
+		this.state = state;
 	}
 
-	public List<SectionItem> getSection(){
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public List<SectionItem> getSection() {
 		return section;
 	}
 
-	public void setIdCategory(int idCategory){
-		this.idCategory = idCategory;
+	public void setSection(List<SectionItem> section) {
+		this.section = section;
 	}
 
-	public int getIdCategory(){
+	public int getIdCategory() {
 		return idCategory;
 	}
 
-	@Override
- 	public String toString(){
-		return name;
-		}
+	public void setIdCategory(int idCategory) {
+		this.idCategory = idCategory;
+	}
 }

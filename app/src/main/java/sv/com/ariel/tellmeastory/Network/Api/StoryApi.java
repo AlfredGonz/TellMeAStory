@@ -1,5 +1,7 @@
 package sv.com.ariel.tellmeastory.Network.Api;
 
+import android.util.Log;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -31,6 +33,8 @@ public class StoryApi {
                 }
                 else{
                     listener.onResponseReady(null);
+                    Log.d("WTF",response.message());
+
 
                 }
             }
@@ -38,6 +42,7 @@ public class StoryApi {
             @Override
             public void onFailure(Call<StoryMain> call, Throwable t) {
                 listener.onResponseReady(null);
+                Log.d("WTF",t.getMessage());
             }
         });
 

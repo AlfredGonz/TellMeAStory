@@ -8,6 +8,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.squareup.picasso.OkHttp3Downloader;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -53,6 +57,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public static class ViewHolder extends  RecyclerView.ViewHolder{
         //Elementos UI a rellenar
         public TextView textViewStory;
+        public ImageView imagen;
 
 
         public ViewHolder(View v){
@@ -61,13 +66,29 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             // aqui tambien manejamos los datos de logioca para extraer datos y hacer referencias con los elementoss
             super(v);
             this.textViewStory =(TextView) v.findViewById(R.id.txtTitulo);
+            imagen = v.findViewById(R.id.txthistoriaportada);
 
         }
 
         public void bind(final Story Story, final  onItemClickListener listener){
             //procesamos los datos para renderizar
             textViewStory.setText(Story.getName());
-           
+
+
+
+
+            try{
+                Picasso.Builder builder = new Picasso.Builder(itemView.getContext());
+                builder.downloader(new OkHttp3Downloader(itemView.getContext()));
+                builder.build().load(Story.getUrl())
+                        .placeholder((R.drawable.udb))
+                        .error(R.drawable.ic_launcher_background)
+                        .into(imagen);
+
+            }catch (Exception e){
+
+               /// Toast.makeText(this, "Error:" + e.getMessage() , Toast.LENGTH_SHORT).show();
+            }
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

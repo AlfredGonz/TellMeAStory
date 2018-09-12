@@ -3,6 +3,7 @@ package sv.com.ariel.tellmeastory.Activities;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -28,6 +29,8 @@ import sv.com.ariel.tellmeastory.Network.Model.StoryMain;
 
 import sv.com.ariel.tellmeastory.R;
 
+import static sv.com.ariel.tellmeastory.StoryInstance.HistoriaGlobal;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener/*, SearchView.OnQueryTextListener*/ {
 
     private Toolbar toolbar;
@@ -38,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private RecyclerView.LayoutManager myLayoutManager;
     ProgressDialog progressDialog;
 
-
+    SwipeRefreshLayout swipeRefreshLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +68,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ImageButton usuario = (ImageButton)findViewById(R.id.usuario) ;
         usuario.setOnClickListener(this);
 
+         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Esto se ejecuta cada vez que se realiza el gesto
+                getAllStories();
+
+
+            }
+        });
+
+
+
         progressDialog  = new ProgressDialog(this);
         progressDialog.setMessage("Cargando historias...");
         progressDialog.setCancelable(false);
@@ -76,13 +92,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void fillRecycler(){
         try{
 
+
+
             myReclyclerView = (RecyclerView) findViewById(R.id.storyRecycler);
             myAdapter = new MyAdapter(stories, R.layout.item,new MyAdapter.onItemClickListener(){
                 @Override
                 public void onItemClick(Story story, int position) {
-                    Toast.makeText(MainActivity.this,story + " - "+ position,Toast.LENGTH_LONG).show();
+                   /// Toast.makeText(MainActivity.this,story + " - "+ position,Toast.LENGTH_LONG).show();
 
                     Intent intent = new Intent(MainActivity.this, Historia.class);
+                   // intent.putExtra("Historia", story); //Your id
+                    HistoriaGlobal = story;
                     startActivity(intent);
                 }
             });
@@ -113,7 +133,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(storyMain!=null)
                 {
                     stories= storyMain.getData();
+                    swipeRefreshLayout.setRefreshing(false);
+
                     fillRecycler();
+
+
+                }
+                else{
+                    Toast.makeText(MainActivity.this, "Error en la conexión", Toast.LENGTH_SHORT).show();
                 }
                 progressDialog.hide();
             }
