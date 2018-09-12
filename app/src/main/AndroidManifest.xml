@@ -18,7 +18,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".StoryActivity"></activity>
+        <activity android:name=".StoryActivity" />
+        <activity android:name=".Activities.Biblioteca" />
+        <activity android:name=".Activities.AgregarHistoria"></activity>
     </application>
 
 </manifest>
