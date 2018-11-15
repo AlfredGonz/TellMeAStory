@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "624272655279",
+    "firebase_url": "https://dimeunahistoria-74bcf.firebaseio.com",
+    "project_id": "dimeunahistoria-74bcf",
+    "storage_bucket": "dimeunahistoria-74bcf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:624272655279:android:724ddd7afb6db7d9",
+        "android_client_info": {
+          "package_name": "sv.com.ariel.tellmeastory"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "624272655279-tvnfbs1nc4pbhtlnb81v7q6869fo58fr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sv.com.ariel.tellmeastory",
+            "certificate_hash": "873d383e32f6b721dcac31be586d1aef865917b2"
+          }
+        },
+        {
+          "client_id": "624272655279-682tp045v183ksarg264nsbml765ehn8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCB_rOWCu2Ko1eOdXbHgnhGmtq433ZV4TY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "624272655279-682tp045v183ksarg264nsbml765ehn8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

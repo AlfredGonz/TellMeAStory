@@ -17,19 +17,20 @@ public class AgregarHistoria extends AppCompatActivity implements View.OnClickLi
 
         ImageButton home = (ImageButton)findViewById(R.id.inicio);
         home.setOnClickListener(this);
-
         ImageButton biblio = (ImageButton)findViewById(R.id.biblioteca) ;
         biblio.setOnClickListener(this);
-
         ImageButton agregar = (ImageButton)findViewById(R.id.agregar) ;
         agregar.setOnClickListener(this);
-
         ImageButton noti = (ImageButton)findViewById(R.id.actualizaciones) ;
         noti.setOnClickListener(this);
-
         ImageButton usuario = (ImageButton)findViewById(R.id.usuario) ;
         usuario.setOnClickListener(this);
+
+
     }
+
+
+
 
     @Override
     public void onClick(View view) {
