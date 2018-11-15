@@ -1,8 +1,8 @@
 package sv.com.ariel.tellmeastory;
 
-import sv.com.ariel.tellmeastory.Network.Model.Story;
+import sv.com.ariel.tellmeastory.Network.Model.StoriesItem;
 
 public class StoryInstance {
 
-    public static Story HistoriaGlobal= null;
+    public static StoriesItem HistoriaGlobal= null;
 }

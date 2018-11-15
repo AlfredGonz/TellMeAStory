@@ -13,8 +13,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import sv.com.ariel.tellmeastory.Network.Model.SectionItem;
-import sv.com.ariel.tellmeastory.Network.Model.Story;
+import sv.com.ariel.tellmeastory.Network.Model.SectionsItem;
+import sv.com.ariel.tellmeastory.Network.Model.StoriesItem;
 
 import static sv.com.ariel.tellmeastory.StoryInstance.HistoriaGlobal;
 
@@ -29,7 +29,7 @@ public class Historia extends AppCompatActivity {
    int totalPage=0;
    int currentPage=0;
    ImageView imageView;
-    List<SectionItem> lista;
+    List<SectionsItem> lista;
     SpeakRequest speakRequest;
     String textToSpeak="";
 
@@ -47,10 +47,10 @@ public class Historia extends AppCompatActivity {
         atras = findViewById(R.id.btnAtras);
         delante=findViewById(R.id.btnDelante);
        // Bundle b = getIntent().getExtras();
-        //Story story = b.getParcelable("Historia");
-        Story story = HistoriaGlobal;
+        //StoriesItem story = b.getParcelable("Historia");
+        StoriesItem story = HistoriaGlobal;
 
-         lista = story.getSection();
+         lista = story.getSections();
         if(lista!= null)
         {
             if( lista.size()>0)
@@ -104,7 +104,7 @@ public class Historia extends AppCompatActivity {
 
     }
 
-    private void setContent(SectionItem sectionItem)
+    private void setContent(SectionsItem sectionItem)
     {
 
         try{

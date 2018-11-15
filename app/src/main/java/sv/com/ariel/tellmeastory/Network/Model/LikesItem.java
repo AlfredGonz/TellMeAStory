@@ -1,17 +1,17 @@
 package sv.com.ariel.tellmeastory.Network.Model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import com.google.gson.annotations.SerializedName;
 
-public class Category  implements Parcelable {
+public class LikesItem {
+
+	@SerializedName("id_story")
+	private int idStory;
 
 	@SerializedName("updated_at")
 	private String updatedAt;
 
-	@SerializedName("name")
-	private String name;
+	@SerializedName("id_usuario")
+	private String idUsuario;
 
 	@SerializedName("created_at")
 	private String createdAt;
@@ -19,40 +19,22 @@ public class Category  implements Parcelable {
 	@SerializedName("id")
 	private int id;
 
+	@SerializedName("state")
+	private int state;
+
+	@SerializedName("comentario")
+	private String comentario;
+
 	@SerializedName("deleted_at")
 	private Object deletedAt;
 
-	protected Category(Parcel in) {
-		updatedAt = in.readString();
-		name = in.readString();
-		createdAt = in.readString();
-		id = in.readInt();
+	public void setIdStory(int idStory){
+		this.idStory = idStory;
 	}
 
-	@Override
-	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeString(updatedAt);
-		dest.writeString(name);
-		dest.writeString(createdAt);
-		dest.writeInt(id);
+	public int getIdStory(){
+		return idStory;
 	}
-
-	@Override
-	public int describeContents() {
-		return 0;
-	}
-
-	public static final Creator<Category> CREATOR = new Creator<Category>() {
-		@Override
-		public Category createFromParcel(Parcel in) {
-			return new Category(in);
-		}
-
-		@Override
-		public Category[] newArray(int size) {
-			return new Category[size];
-		}
-	};
 
 	public void setUpdatedAt(String updatedAt){
 		this.updatedAt = updatedAt;
@@ -62,12 +44,12 @@ public class Category  implements Parcelable {
 		return updatedAt;
 	}
 
-	public void setName(String name){
-		this.name = name;
+	public void setIdUsuario(String idUsuario){
+		this.idUsuario = idUsuario;
 	}
 
-	public String getName(){
-		return name;
+	public String getIdUsuario(){
+		return idUsuario;
 	}
 
 	public void setCreatedAt(String createdAt){
@@ -86,6 +68,22 @@ public class Category  implements Parcelable {
 		return id;
 	}
 
+	public void setState(int state){
+		this.state = state;
+	}
+
+	public int getState(){
+		return state;
+	}
+
+	public void setComentario(String comentario){
+		this.comentario = comentario;
+	}
+
+	public String getComentario(){
+		return comentario;
+	}
+
 	public void setDeletedAt(Object deletedAt){
 		this.deletedAt = deletedAt;
 	}
@@ -97,11 +95,14 @@ public class Category  implements Parcelable {
 	@Override
  	public String toString(){
 		return 
-			"Category{" + 
-			"updated_at = '" + updatedAt + '\'' + 
-			",name = '" + name + '\'' + 
+			"LikesItem{" +
+			"id_story = '" + idStory + '\'' + 
+			",updated_at = '" + updatedAt + '\'' + 
+			",id_usuario = '" + idUsuario + '\'' + 
 			",created_at = '" + createdAt + '\'' + 
 			",id = '" + id + '\'' + 
+			",state = '" + state + '\'' + 
+			",comentario = '" + comentario + '\'' + 
 			",deleted_at = '" + deletedAt + '\'' + 
 			"}";
 		}

@@ -2,7 +2,6 @@ package sv.com.ariel.tellmeastory.Activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,23 +9,19 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.SearchView;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 
 import sv.com.ariel.tellmeastory.Historia;
 import sv.com.ariel.tellmeastory.MyAdapter;
 import sv.com.ariel.tellmeastory.Network.Api.StoryApi;
-import sv.com.ariel.tellmeastory.Network.Model.Story;
-import sv.com.ariel.tellmeastory.Network.Model.StoryMain;
 
+import sv.com.ariel.tellmeastory.Network.Model.ResponseSingleStory;
+import sv.com.ariel.tellmeastory.Network.Model.ResponseStory;
+import sv.com.ariel.tellmeastory.Network.Model.StoriesItem;
 import sv.com.ariel.tellmeastory.R;
 
 import static sv.com.ariel.tellmeastory.StoryInstance.HistoriaGlobal;
@@ -35,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Toolbar toolbar;
 
-    private List<Story> stories;
+    private List<StoriesItem> stories;
     private RecyclerView myReclyclerView;
     private RecyclerView.Adapter myAdapter;
     private RecyclerView.LayoutManager myLayoutManager;
@@ -97,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             myReclyclerView = (RecyclerView) findViewById(R.id.storyRecycler);
             myAdapter = new MyAdapter(stories, R.layout.item,new MyAdapter.onItemClickListener(){
                 @Override
-                public void onItemClick(Story story, int position) {
+                public void onItemClick(StoriesItem story, int position) {
                    /// Toast.makeText(MainActivity.this,story + " - "+ position,Toast.LENGTH_LONG).show();
 
                     Intent intent = new Intent(MainActivity.this, Historia.class);
@@ -129,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         StoryApi storyApi = new StoryApi();
         storyApi.get(new StoryApi.onResponseReadyListener() {
             @Override
-            public void onResponseReady(StoryMain storyMain) {
+            public void onResponseReady(ResponseStory storyMain) {
                 if(storyMain!=null)
                 {
                     stories= storyMain.getData();
@@ -143,6 +138,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(MainActivity.this, "Error en la conexión", Toast.LENGTH_SHORT).show();
                 }
                 progressDialog.hide();
+            }
+
+            @Override
+            public void onResponseSingleReady(ResponseSingleStory storyMain) {
+                ///No usar
             }
         });
     }
@@ -203,7 +203,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onQueryTextChange(String s) {
 
         try {
-            ArrayList<Story>listaFiltrada =  filter(stories,s);
+            ArrayList<StoriesItem>listaFiltrada =  filter(stories,s);
             myAdapter.setFilter(stories);
 
         }catch (Exception e)
@@ -212,13 +212,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         return false;
     }
-    private ArrayList<Story> filter(List<Story> historias, String texto)
+    private ArrayList<StoriesItem> filter(List<StoriesItem> historias, String texto)
     {
-        ArrayList<Story>listaFiltrada= new ArrayList<>();
+        ArrayList<StoriesItem>listaFiltrada= new ArrayList<>();
 
         try{
             texto=texto.toLowerCase();
-            for (Story story: historias){
+            for (StoriesItem story: historias){
                 String historia = story.getName().toLowerCase();
 
                 if(historia.contains(texto)){

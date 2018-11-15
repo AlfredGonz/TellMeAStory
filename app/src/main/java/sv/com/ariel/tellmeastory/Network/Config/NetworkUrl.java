@@ -6,5 +6,6 @@ package sv.com.ariel.tellmeastory.Network.Config;
 
 public  class NetworkUrl {
 
-    public static String BASE_FINAL_URL="https://gitlab.com/snippets/";
+    public static String BASE_FINAL_URL="http://ec2-54-244-63-119.us-west-2.compute.amazonaws.com";
+
 }

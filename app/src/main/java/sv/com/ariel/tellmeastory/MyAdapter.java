@@ -1,32 +1,29 @@
 package sv.com.ariel.tellmeastory;
 
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import sv.com.ariel.tellmeastory.Network.Model.Story;
+import sv.com.ariel.tellmeastory.Network.Model.StoriesItem;
 
 /**
  * Created by Ariel on 09/09/2018.
  */
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-    private List<Story> Storys;
+    private List<StoriesItem> Storys;
     private int layout;
     private onItemClickListener listener;
 
-    public MyAdapter(List<Story> Storys, int layout, onItemClickListener listener) {
+    public MyAdapter(List<StoriesItem> Storys, int layout, onItemClickListener listener) {
         this.Storys = Storys;
         this.layout = layout;
         this.listener = listener;
@@ -70,7 +67,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
         }
 
-        public void bind(final Story Story, final  onItemClickListener listener){
+        public void bind(final StoriesItem Story, final  onItemClickListener listener){
             //procesamos los datos para renderizar
             textViewStory.setText(Story.getName());
 
@@ -80,7 +77,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             try{
                 Picasso.Builder builder = new Picasso.Builder(itemView.getContext());
                 builder.downloader(new OkHttp3Downloader(itemView.getContext()));
-                builder.build().load(Story.getUrl())
+                builder.build().load("http://ec2-54-244-63-119.us-west-2.compute.amazonaws.com/cuentame/public/images/"+Story.getUrl())
                         .placeholder((R.drawable.udb))
                         .error(R.drawable.ic_launcher_background)
                         .into(imagen);
@@ -101,6 +98,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
     ///declaramos las interfaces con los metodos a implementar
     public interface onItemClickListener{
-        void onItemClick(Story Story, int position);
+        void onItemClick(StoriesItem Story, int position);
     }
 }
