@@ -58,5 +58,10 @@ dependencies {
     implementation 'com.google.android.gms:play-services-ads:15.0.1'
     implementation 'com.google.firebase:firebase-ads:15.0.1'
 
+    implementation 'com.google.firebase:firebase-messaging:17.3.3'
+
+
 }
 apply plugin: 'com.google.gms.google-services'
+
+com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true

@@ -108,7 +108,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>   impl
         public ViewHolder(View v){
 
             //recibe la vista completa para que la rendericemos, pasamos parametros a constructor padre
-            // aqui tambien manejamos los datos de logioca para extraer datos y hacer referencias con los elementoss
+            // aqui tambien manejamos los datos de logica para extraer datos y hacer referencias con los elementoss
             super(v);
             this.textViewStory =(TextView) v.findViewById(R.id.txtTitulo);
             imagen = v.findViewById(R.id.txthistoriaportada);

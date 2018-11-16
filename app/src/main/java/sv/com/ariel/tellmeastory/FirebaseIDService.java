@@ -1,4 +1,4 @@
-package sv.com.ariel.tellmeastory.notificacionesPush;
+package sv.com.ariel.tellmeastory;
 
 import android.util.Log;
 
