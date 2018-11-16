@@ -50,7 +50,7 @@ public interface ApiClient {
                                               @Field("description") String description,
                                               @Field("url")String url);
     @FormUrlEncoded
-    @POST("/cuentame/public/api/stories")
+    @POST("/cuentame/public/api/usuario_stories")
     Call<ResponseSingleLike> postLike(@Field("id_usuario")String idUsuario,
                                       @Field("id_story") int idStory,
                                       @Field("comentario ") String comentario,

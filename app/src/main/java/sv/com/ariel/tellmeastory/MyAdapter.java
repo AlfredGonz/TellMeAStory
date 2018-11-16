@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -55,6 +56,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         //Elementos UI a rellenar
         public TextView textViewStory;
         public ImageView imagen;
+        public ImageButton like;
+        public TextView likeText;
 
 
         public ViewHolder(View v){
@@ -64,6 +67,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             super(v);
             this.textViewStory =(TextView) v.findViewById(R.id.txtTitulo);
             imagen = v.findViewById(R.id.txthistoriaportada);
+            like = v.findViewById(R.id.btnLike);
+            likeText=v.findViewById(R.id.txtLikes);
 
         }
 
@@ -93,11 +98,22 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 }
             });
 
+            like.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onLikeClick(Story,getAdapterPosition());
+                }
+            });
+
+            likeText.setText(Story.getLikes()+"");
+
         }
 
     }
     ///declaramos las interfaces con los metodos a implementar
     public interface onItemClickListener{
         void onItemClick(StoriesItem Story, int position);
+        void onLikeClick(StoriesItem Story, int position);
+
     }
 }

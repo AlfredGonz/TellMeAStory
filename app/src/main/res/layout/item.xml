@@ -56,6 +56,25 @@
             android:textSize="@dimen/article_subheading"
             tools:text="Descripcion" />
 
+        <TextView
+            android:id="@+id/txtLikes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="-43dp"
+            android:layout_toEndOf="@+id/btnLike"
+            android:text="10"
+            android:textColor="@color/cardview_light_background"
+            android:textSize="30sp" />
+
+        <ImageButton
+            android:id="@+id/btnLike"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="43dp"
+            app:srcCompat="@drawable/ic_like" />
 
 
     </RelativeLayout>

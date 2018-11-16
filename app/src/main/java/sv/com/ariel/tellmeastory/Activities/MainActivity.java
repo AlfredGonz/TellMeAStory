@@ -17,8 +17,11 @@ import java.util.List;
 
 import sv.com.ariel.tellmeastory.Historia;
 import sv.com.ariel.tellmeastory.MyAdapter;
+import sv.com.ariel.tellmeastory.Network.Api.LikeApi;
 import sv.com.ariel.tellmeastory.Network.Api.StoryApi;
 
+import sv.com.ariel.tellmeastory.Network.Model.LikesItem;
+import sv.com.ariel.tellmeastory.Network.Model.ResponseSingleLike;
 import sv.com.ariel.tellmeastory.Network.Model.ResponseSingleStory;
 import sv.com.ariel.tellmeastory.Network.Model.ResponseStory;
 import sv.com.ariel.tellmeastory.Network.Model.StoriesItem;
@@ -100,6 +103,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     HistoriaGlobal = story;
                     startActivity(intent);
                 }
+
+                @Override
+                public void onLikeClick(StoriesItem Story, int position) {
+                    LikesItem liketmp = new LikesItem();
+                    liketmp.setIdStory(Story.getId());
+                    liketmp.setIdUsuario("1");
+                    liketmp.setState(1);
+
+                    like(liketmp);
+                   // Toast.makeText(MainActivity.this, "Like", Toast.LENGTH_SHORT).show();
+                }
             });
             //todos los tipos de layout manager con los que se puede jugar con el recycler view
             myLayoutManager = new LinearLayoutManager(this);
@@ -117,6 +131,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         {
             System.out.println("Error :" + e.getMessage());
         }
+    }
+
+    private void like(LikesItem like)
+    {
+
+
+        LikeApi likeApi = new LikeApi();
+        likeApi.post(like, new LikeApi.onResponseReadyListener() {
+            @Override
+            public void onResponseReady(ResponseSingleLike user) {
+                if(user!= null)
+                {
+                    getAllStories();
+                }
+
+            }
+        });
     }
 
     private void getAllStories(){
