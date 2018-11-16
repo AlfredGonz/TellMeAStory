@@ -7,4 +7,7 @@
     <string name="cerrarSesion">Cerrrar Sesión</string>
     <string name="not_close_session">No se pudo cerrar sesión</string>
     <string name="not_firebase_auth">No se pudo autenticar con Firebase</string>
+
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+
 </resources>

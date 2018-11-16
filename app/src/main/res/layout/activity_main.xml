@@ -4,63 +4,81 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     tools:context="sv.com.ariel.tellmeastory.Activities.MainActivity">
 
-  <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/contenedor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-      <android.support.v7.widget.Toolbar
-          android:id="@+id/toolbar"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:background="@color/colorPrimary"
-          app:title="Inicio"
-          app:titleTextColor="@color/colorAccent"
-          ></android.support.v7.widget.Toolbar>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            app:title="Inicio"
+            app:titleTextColor="@color/colorAccent"></android.support.v7.widget.Toolbar>
 
-     <!-- <ImageView
+        <!-- <ImageView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:src="@drawable/story"
           android:scaleType="fitXY"/>
 -->
-      <TextView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="HISTORIAS"
-          android:textColor="#212121"
-          android:gravity="center"
-          android:textSize="30sp"
-          android:fontFamily="serif"
-          android:textStyle="bold"
-          android:layout_margin="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:fontFamily="serif"
+            android:gravity="center"
+            android:text="HISTORIAS"
+            android:textColor="#212121"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/banner_ad_unit_id"
+            android:layout_marginBottom="10dp">
+        </com.google.android.gms.ads.AdView>
 
 
-      <android.support.v4.widget.SwipeRefreshLayout
-          android:id="@+id/swipeRefreshLayout"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent">
-          <android.support.v7.widget.RecyclerView
-              android:id="@+id/storyRecycler"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              tools:layout_editor_absoluteX="8dp"
-              tools:layout_editor_absoluteY="8dp" />
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-      </android.support.v4.widget.SwipeRefreshLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/storyRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="8dp" />
+
+        </android.support.v4.widget.SwipeRefreshLayout>
 
 
+    </LinearLayout>
 
-  </LinearLayout>
+
 
     <!--- Menú -->
     <RelativeLayout
+        android:layout_below="@+id/contenedor"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp">
+
         <android.support.v7.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -71,50 +89,47 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:weightSum="5"
-                >
+                android:weightSum="5">
 
                 <ImageButton
                     android:id="@+id/inicio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/home"
-                    android:background="@android:color/transparent"
                     android:layout_weight="1"
-                    />
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/home" />
 
                 <ImageButton
                     android:id="@+id/biblioteca"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/biblioteca"
+                    android:layout_weight="1"
                     android:background="@android:color/transparent"
-                    android:layout_weight="1" />
+                    android:src="@drawable/biblioteca" />
 
                 <ImageButton
                     android:id="@+id/agregar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/agregar"
+                    android:layout_weight="1"
                     android:background="@android:color/transparent"
-                    android:layout_weight="1"/>
+                    android:src="@drawable/agregar" />
 
                 <ImageButton
                     android:id="@+id/actualizaciones"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/notificaciones"
+                    android:layout_weight="1"
                     android:background="@android:color/transparent"
-                    android:layout_weight="1"/>
+                    android:src="@drawable/notificaciones" />
 
                 <ImageButton
                     android:id="@+id/usuario"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/user"
-                    android:background="@android:color/transparent"
                     android:layout_weight="1"
-                    />
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/user" />
 
             </LinearLayout>
 
