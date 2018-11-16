@@ -4,6 +4,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 import com.squareup.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import sv.com.ariel.tellmeastory.Network.Model.StoriesItem;
@@ -19,13 +22,20 @@ import sv.com.ariel.tellmeastory.Network.Model.StoriesItem;
  * Created by Ariel on 09/09/2018.
  */
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>   implements Filterable {
     private List<StoriesItem> Storys;
+    private List<StoriesItem> StorysFilter;
+
+
+
+
     private int layout;
     private onItemClickListener listener;
 
     public MyAdapter(List<StoriesItem> Storys, int layout, onItemClickListener listener) {
         this.Storys = Storys;
+        this.StorysFilter = Storys;
+
         this.layout = layout;
         this.listener = listener;
     }
@@ -43,13 +53,48 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         //llamamos al metodo bind del viewholder pasandole el objdeto y un listener
-        holder.bind(Storys.get(position), listener);
+        holder.bind(StorysFilter.get(position), listener);
 
     }
 
     @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString = charSequence.toString();
+                if (charString.isEmpty()) {
+                    StorysFilter = Storys;
+                } else {
+                    List<StoriesItem> filteredList = new ArrayList<>();
+                    for (StoriesItem row : Storys) {
+
+                        // name match condition. this might differ depending on your requirement
+                        // here we are looking for name or phone number match
+                        if (row.getName().toLowerCase().contains(charString.toLowerCase()) || row.getName().contains(charSequence)) {
+                            filteredList.add(row);
+                        }
+                    }
+
+                    StorysFilter = filteredList;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = StorysFilter;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                StorysFilter = (ArrayList<StoriesItem>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
+
+    @Override
     public int getItemCount() {
-        return Storys.size();
+        return StorysFilter.size();
     }
 
     public static class ViewHolder extends  RecyclerView.ViewHolder{
