@@ -1,6 +1,8 @@
 package sv.com.ariel.tellmeastory.Activities;
 
 import android.app.ProgressDialog;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +10,9 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -17,8 +21,11 @@ import java.util.List;
 
 import sv.com.ariel.tellmeastory.Historia;
 import sv.com.ariel.tellmeastory.MyAdapter;
+import sv.com.ariel.tellmeastory.Network.Api.LikeApi;
 import sv.com.ariel.tellmeastory.Network.Api.StoryApi;
 
+import sv.com.ariel.tellmeastory.Network.Model.LikesItem;
+import sv.com.ariel.tellmeastory.Network.Model.ResponseSingleLike;
 import sv.com.ariel.tellmeastory.Network.Model.ResponseSingleStory;
 import sv.com.ariel.tellmeastory.Network.Model.ResponseStory;
 import sv.com.ariel.tellmeastory.Network.Model.StoriesItem;
@@ -32,9 +39,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private List<StoriesItem> stories;
     private RecyclerView myReclyclerView;
-    private RecyclerView.Adapter myAdapter;
+    private MyAdapter myAdapter;
     private RecyclerView.LayoutManager myLayoutManager;
     ProgressDialog progressDialog;
+    private SearchView searchView;
+
 
     SwipeRefreshLayout swipeRefreshLayout;
     @Override
@@ -100,6 +109,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     HistoriaGlobal = story;
                     startActivity(intent);
                 }
+
+                @Override
+                public void onLikeClick(StoriesItem Story, int position) {
+                    LikesItem liketmp = new LikesItem();
+                    liketmp.setIdStory(Story.getId());
+                    liketmp.setIdUsuario("1");
+                    liketmp.setState(1);
+
+                    like(liketmp);
+                   // Toast.makeText(MainActivity.this, "Like", Toast.LENGTH_SHORT).show();
+                }
             });
             //todos los tipos de layout manager con los que se puede jugar con el recycler view
             myLayoutManager = new LinearLayoutManager(this);
@@ -117,6 +137,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         {
             System.out.println("Error :" + e.getMessage());
         }
+    }
+
+    private void like(LikesItem like)
+    {
+
+
+        LikeApi likeApi = new LikeApi();
+        likeApi.post(like, new LikeApi.onResponseReadyListener() {
+            @Override
+            public void onResponseReady(ResponseSingleLike user) {
+                if(user!= null)
+                {
+                    getAllStories();
+                }
+
+            }
+        });
     }
 
     private void getAllStories(){
@@ -232,4 +269,56 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return listaFiltrada;
     }
 */
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+
+
+
+
+
+        // Associate searchable configuration with the SearchView
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        searchView = (SearchView) menu.findItem(R.id.action_search)
+                .getActionView();
+        searchView.setSearchableInfo(searchManager
+                .getSearchableInfo(getComponentName()));
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+
+        // listening to search query text change
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // filter recycler view when query submitted
+                // mAdapter.getFilter().filter(query);
+              myAdapter.getFilter().filter(query);
+            //    Toast.makeText(MainActivity.this, query, Toast.LENGTH_SHORT).show();
+
+
+
+
+
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                // filter recycler view when text is changed
+                /// mAdapter.getFilter().filter(query);
+
+                myAdapter.getFilter().filter(query);
+
+             //   Toast.makeText(MainActivity.this, query, Toast.LENGTH_SHORT).show();
+
+
+                return false;
+            }
+        });
+
+        return true;
+    }
+
 }
